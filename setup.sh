@@ -6,9 +6,9 @@ bazel build //...
 cd ..
 
 # BAP
-opam init --auto-setup --comp=4.05.0 --yes
+opam init --auto-setup --comp=4.12.1 --yes
 opam install depext --yes
-opam depext --install bap=1.4.0 --yes
+opam depext --install bap=2.5.0 --yes
 opam install yojson --yes
 
 # build bap plugin
