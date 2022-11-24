@@ -33,8 +33,8 @@ RUN apt-get -y install \
     unzip \
     wget \
     opam
-RUN opam init --auto-setup --comp=4.05.0 --yes
-RUN opam depext --install bap=1.4.0 --yes
+RUN opam init --auto-setup --comp=4.12.1 --yes
+RUN opam depext --install bap=2.5.0 --yes
 RUN opam install yojson --yes
 
 # copy debin
