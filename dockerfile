@@ -2,30 +2,14 @@ FROM ubuntu:18.04
 
 RUN apt-get -y update
 
-# install bazel
-RUN apt-get -y install wget
-RUN wget https://github.com/bazelbuild/bazel/releases/download/0.19.2/bazel-0.19.2-linux-x86_64
-RUN mv bazel-0.19.2-linux-x86_64 /usr/local/bin/bazel
-RUN chmod +x /usr/local/bin/bazel
-
-# install Nice2Predict
-WORKDIR /debin
+# install all deps first
 RUN apt-get install -y \
     git \
     libmicrohttpd-dev \
     libcurl4-openssl-dev \
     libgoogle-glog-dev \
-    libgflags-dev
-
-# install gcc as it musn't be included in 18.04
-RUN apt-get -y install gcc
-RUN git clone https://github.com/eth-sri/Nice2Predict.git
-RUN cd Nice2Predict && \
-    bazel build //... && \
-    cd ..
-
-# install BAP
-RUN apt-get -y install \
+    libgflags-dev \
+    wget \
     build-essential \
     libx11-dev \
     m4 \
@@ -36,6 +20,22 @@ RUN apt-get -y install \
     wget \
     gcc \
     opam
+    
+# install bazel
+RUN wget https://github.com/bazelbuild/bazel/releases/download/0.19.2/bazel-0.19.2-linux-x86_64
+RUN mv bazel-0.19.2-linux-x86_64 /usr/local/bin/bazel
+RUN chmod +x /usr/local/bin/bazel
+
+# install Nice2Predict
+WORKDIR /debin
+
+# install Nice2Predict
+RUN git clone https://github.com/eth-sri/Nice2Predict.git
+RUN cd Nice2Predict && \
+    bazel build //... && \
+    cd ..
+
+# install BAP
 RUN opam init --auto-setup --comp=4.12.1 --yes
 RUN opam depext --install bap=2.5.0 --yes
 RUN opam install yojson --yes
