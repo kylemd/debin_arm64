@@ -36,7 +36,7 @@ RUN cd Nice2Predict && \
     cd ..
 
 # install BAP
-RUN opam init --auto-setup --comp=4.12 --yes
+RUN opam init --auto-setup --yes
 RUN opam depext --install bap=2.5.0 --yes
 RUN opam install yojson --yes
 
