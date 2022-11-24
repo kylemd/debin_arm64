@@ -17,6 +17,8 @@ RUN apt-get install -y \
     libgoogle-glog-dev \
     libgflags-dev
 
+# install gcc as it musn't be included in 18.04
+RUN apt-get -y install gcc
 RUN git clone https://github.com/eth-sri/Nice2Predict.git
 RUN cd Nice2Predict && \
     bazel build //... && \
@@ -32,6 +34,7 @@ RUN apt-get -y install \
     sudo \
     unzip \
     wget \
+    gcc \
     opam
 RUN opam init --auto-setup --comp=4.12.1 --yes
 RUN opam depext --install bap=2.5.0 --yes
